@@ -1,6 +1,6 @@
 # Text to Speech (TTS) GUI for Linux
 
-![image](https://github.com/user-attachments/assets/42784801-a81f-4d81-9b5c-7a98eae66c5c)
+![image](https://github.com/themagicalcats/text-to-speech-thingy/blob/main/screenshot.png?raw=true)
 
 
 ## 🎁 Installation
