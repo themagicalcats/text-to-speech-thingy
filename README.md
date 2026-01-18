@@ -5,7 +5,7 @@
 
 ## 🎁 Installation
 1. Download [tts.py](https://raw.githubusercontent.com/gnat/text-to-speech-ubuntu/refs/heads/main/tts.py) to your Desktop.
-2. Install dependencies: `sudo apt install espeak python3-pyqt6`
+2. Install dependencies: Ubuntu:`sudo apt install espeak python3-pyqt6`, Arch: `sudo pacman -S espeak-ng python-pyqt6`
 3. Make runnable: `cd ~/Desktop; chmod +x ./tts.py`
 4. Create `tts.desktop`
 ```ini
@@ -33,7 +33,7 @@ Short and sweet single Python script. Built in Qt 6. Supports both Wayland and X
 
 For speed reading, researching, programming, editing and writing.
 
-Tested on Ubuntu 24.04, 22.04, 22.10, 23.04, 23.10, but should work on similar distributions such as Mint, Debian, Pop OS. `xsel` required so espeak can read from clipboard. Works with `espeak` or `espeak-ng`.
+Tested on Arch Linux, Ubuntu 24.04, 22.04, 22.10, 23.04, 23.10, but should work on similar distributions such as Mint, Debian, Pop OS. `xsel` required so espeak can read from clipboard. Works with `espeak` or `espeak-ng`.
 
 1. `sudo apt install espeak xsel -y`
 2. Set your custom shortcuts. See [Gnome](#gnome) or [KDE](#kde) below.
