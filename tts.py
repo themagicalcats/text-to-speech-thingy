@@ -1,7 +1,7 @@
 #!/bin/python3
 import sys
 import subprocess
-from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QTextEdit, QPushButton, QSlider, QLabel, QWidget
+from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QTextEdit, QPushButton, QSlider, QLabel, QWidget, QFileDialog
 from PyQt6.QtCore import Qt
 
 class TextToSpeechApp(QMainWindow):
@@ -64,6 +64,13 @@ class TextToSpeechApp(QMainWindow):
 		button_layout.addWidget(self.button_stop)
 		layout.addLayout(button_layout)
 
+		self.button_save = QPushButton("💾 Save", self)
+		self.button_save.clicked.connect(self.save_speech)
+		self.button_save.setFixedHeight(60)
+		button_layout.addWidget(self.button_save)
+		layout.addLayout(button_layout)
+
+
 	def update_speed_label(self):
 		self.speed_slider_label.setText(f"Speed: {self.speed_slider.value()}")
 
@@ -78,7 +85,27 @@ class TextToSpeechApp(QMainWindow):
 			self.stop_speaking()
 			try:
 				# Run espeak asynchronously
-				subprocess.Popen(["espeak", f"-s{speed}", "-g0", f"-p{pitch}", "-v", "english-us", text])
+				subprocess.Popen(["espeak", f"-s{speed}", "-g0", f"-p{pitch}", text])
+			except FileNotFoundError:
+				print("espeak command not found. Please make sure espeak is installed and in your PATH.")
+			except Exception as e:
+				print(f"An error occurred: {e}")
+
+	def open_fileDialog(self):
+		filename, _ = QFileDialog.getSaveFileName(None, "Save As", "~/.wav", "Audio Files (*.wav);;All Files (*)")
+		if filename:
+			print(filename)
+			return filename
+
+	def save_speech(self):
+		text = self.textbox.toPlainText()
+		speed = self.speed_slider.value()
+		pitch = self.pitch_slider.value()
+		filename = self.open_fileDialog()
+		if text:
+			self.stop_speaking()
+			try:
+				subprocess.Popen(["espeak", f"-s{speed}", "-g0", f"-p{pitch}", "-w", filename, text])
 			except FileNotFoundError:
 				print("espeak command not found. Please make sure espeak is installed and in your PATH.")
 			except Exception as e:
